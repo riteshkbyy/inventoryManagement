@@ -1,0 +1,32 @@
+{% extends 'inventory/base.html' %}
+
+{% block content %}
+<body>
+
+<div class="container mt-5">
+    <div class="card shadow-lg">
+        <div class="card-header bg-primary text-white text-center">
+            <h2 class="mb-0">{% if form.instance.id %}Edit{% else %}Add{% endif %} Supplier</h2>
+        </div>
+        <div class="card-body">
+            {% if form.errors %}
+                <div class="alert alert-danger">
+                    <strong>Error:</strong> Please check the form fields.
+                </div>
+            {% endif %}
+
+            <form method="post">
+                {% csrf_token %}
+                <div class="mb-3">
+                    {{ form.as_p }}
+                </div>
+                <button type="submit" class="btn btn-success">Save</button>
+                <a href="{% url 'supplier_list' %}" class="btn btn-secondary">Cancel</a>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap 5 JS (Optional for interactive components) -->
+</body>
+{% endblock %}

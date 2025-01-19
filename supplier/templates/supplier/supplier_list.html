@@ -1,0 +1,50 @@
+{% extends 'inventory/base.html' %}
+
+{% block content %}
+<body>
+
+<div class="container mt-5">
+    <div class="card shadow-lg">
+        <div class="card-header bg-primary text-white text-center">
+            <h2 class="mb-0">Supplier List</h2>
+        </div>
+        <div class="card-body">
+            <a href="{% url 'supplier_create' %}" class="btn btn-success mb-3">Add Supplier</a>
+            <table class="table table-striped table-hover text-center align-middle">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>Address</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for supplier in suppliers %}
+                        <tr>
+                            <td>{{ supplier.name }}</td>
+                            <td>{{ supplier.contact_email }}</td>
+                            <td>{{ supplier.contact_phone }}</td>
+                            <td>{{ supplier.address }}</td>
+                            <td>
+                                <a href="{% url 'supplier_update' supplier.id %}" class="btn btn-warning btn-sm">Edit</a>
+                                <a href="{% url 'supplier_delete' supplier.id %}" class="btn btn-danger btn-sm">Delete</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% if suppliers|length == 0 %}
+                <div class="alert alert-info text-center">
+                    No suppliers available.
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap 5 JS (Optional for interactive components) -->
+
+</body>
+{% endblock %}

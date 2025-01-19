@@ -1,0 +1,56 @@
+{% extends 'inventory/base.html' %}
+
+{% block content %}
+<body>
+
+<div class="container mt-5">
+    <div class="card shadow-lg">
+        <div class="card-header bg-primary text-white text-center">
+            <h2 class="mb-0">Create New Order</h2>
+        </div>
+        <div class="card-body">
+            
+            {% if error_message %}
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <strong>Error!</strong> {{ error_message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            {% endif %}
+
+            <form method="post">
+                {% csrf_token %}
+
+                <div class="mb-3">
+                    <label for="customer_name" class="form-label fw-bold">Customer Name</label>
+                    <input type="text" id="customer_name" name="customer_name" class="form-control" required placeholder="Enter customer name">
+                </div>
+
+                <div class="mb-3">
+                    <label for="product_id" class="form-label fw-bold">Select Product</label>
+                    <select id="product_id" name="product_id" class="form-select" required>
+                        {% for product in products %}
+                            <option value="{{ product.id }}">{{ product.name }} - ${{ product.price }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label for="quantity" class="form-label fw-bold">Quantity</label>
+                    <input type="number" id="quantity" name="quantity" class="form-control" required min="1" placeholder="Enter quantity">
+                </div>
+
+                <button type="submit" class="btn btn-success w-100">Create Order</button>
+            </form>
+
+            <div class="text-center mt-3">
+                <a href="{% url 'orders:order_list' %}" class="btn btn-secondary">Back to Orders List</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap 5 JS (Optional for interactive components) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+{% endblock %}
